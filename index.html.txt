@@ -143,10 +143,15 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-        // These global variables are provided by the environment.
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        const firebaseConfig = {
+  apiKey: "AIzaSyCYwuJHeL_YlyW7zPNRGSXe_NB8r_Ql_t0",
+  authDomain: "spip-8e5e9.firebaseapp.com",
+  projectId: "spip-8e5e9",
+  storageBucket: "spip-8e5e9.firebasestorage.app",
+  messagingSenderId: "448004404076",
+  appId: "1:448004404076:web:6aa65c8de90439285db949",
+  measurementId: "G-J44L941K89"
+};
 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -235,11 +240,7 @@
                         // No user is signed in.
                         console.log("No user signed in, attempting to sign in...");
                          try {
-                            if (initialAuthToken) {
-                                await signInWithCustomToken(this.auth, initialAuthToken);
-                            } else {
                                 await signInAnonymously(this.auth);
-                            }
                         } catch (error) {
                             console.error("Authentication failed:", error);
                             document.getElementById('loader').innerText = "Gagal melakukan otentikasi.";
@@ -296,7 +297,7 @@
                 if (this.unsubscribe) {
                     this.unsubscribe(); // Stop listening to old document
                 }
-                const docRef = doc(this.db, `artifacts/${appId}/public/data/assessments`, this.currentSatker);
+                const docRef = doc(this.db, `assessments`, this.currentSatker);
                 this.unsubscribe = onSnapshot(docRef, (docSnap) => {
                     if (docSnap.exists()) {
                         this.assessmentData = docSnap.data().parameters || {};
@@ -373,7 +374,7 @@
                     uraian_aoi: document.getElementById('uraian-aoi').value,
                 };
 
-                const docRef = doc(this.db, `artifacts/${appId}/public/data/assessments`, this.currentSatker);
+                const docRef = doc(this.db, `assessments`, this.currentSatker);
                 
                 try {
                     // Using setDoc with merge to create or update the document without overwriting the whole thing
