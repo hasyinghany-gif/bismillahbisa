@@ -1,1 +1,1 @@
-# bismillahbisa
+# Kalo gabisa gw tinggal tidur
